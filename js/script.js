@@ -1,10 +1,9 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const form = document.querySelector('.contact-form form');
     const nameInput = document.getElementById('name');
     const emailInput = document.getElementById('email');
     const interestSelect = document.getElementById('interest');
 
-    // Populate select options
     const options = ['Travel Packages', 'Custom Itinerary', 'General Inquiry'];
     options.forEach(option => {
         const opt = document.createElement('option');
@@ -13,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         interestSelect.appendChild(opt);
     });
 
-    form.addEventListener('submit', function(event) {
+    form.addEventListener('submit', function (event) {
         if (!nameInput.value.trim()) {
             alert('Please enter your name.');
             event.preventDefault();
@@ -31,7 +30,6 @@ document.addEventListener('DOMContentLoaded', function() {
         return re.test(email);
     }
 
-    // Banner slider
     let slideIndex = 0;
     const slides = document.querySelectorAll('.banner-slider .slide');
 
@@ -46,26 +44,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         slides[slideIndex - 1].style.display = 'block';
         slides[slideIndex - 1].classList.add('active');
-        setTimeout(showSlides, 3000); // Change slide every 3 seconds
+        setTimeout(showSlides, 3000);
     }
 
     showSlides();
 
-    // Image slider
-    let currentSlideIndex = 0;
-    const imageSlides = document.querySelectorAll('.content .left .image-slider .slide');
+    const scrollElements = document.querySelectorAll('.scroll-element');
 
-    function showImageSlides() {
-        imageSlides.forEach((slide, index) => {
-            slide.style.display = 'none';
+    const elementInView = (el, dividend = 1) => {
+        const elementTop = el.getBoundingClientRect().top;
+        return elementTop <= (window.innerHeight || document.documentElement.clientHeight) / dividend;
+    };
+
+    const displayScrollElement = (element) => {
+        element.classList.add('scroll-in-view');
+    };
+
+    const hideScrollElement = (element) => {
+        element.classList.remove('scroll-in-view');
+    };
+
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 1.25)) {
+                displayScrollElement(el);
+            } else {
+                hideScrollElement(el);
+            }
         });
-        currentSlideIndex++;
-        if (currentSlideIndex > imageSlides.length) {
-            currentSlideIndex = 1;
-        }
-        imageSlides[currentSlideIndex - 1].style.display = 'block';
-        setTimeout(showImageSlides, 3000); // Change image every 3 seconds
-    }
+    };
 
-    showImageSlides();
+    window.addEventListener('scroll', () => {
+        handleScrollAnimation();
+    });
+
+    handleScrollAnimation();
 });
