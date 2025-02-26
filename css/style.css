@@ -214,7 +214,6 @@ main {
     margin-bottom: 1rem;
     text-align: left;
     margin-right: auto;
-    max-width: 65%;
 }
 
 .info-section ul {
@@ -372,12 +371,12 @@ footer p {
     }
 
     .package {
-        max-width: 30%;
+        max-width: 48%;
         margin-right: 2%;
         margin-bottom: 2rem;
     }
 
-    .package:last-child {
+    .package:nth-child(2n) {
         margin-right: 0;
     }
 
