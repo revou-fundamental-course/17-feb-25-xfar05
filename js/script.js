@@ -23,6 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('Please select an interest.');
             event.preventDefault();
         }
+        alert("Successfully contacted")
     });
 
     function validateEmail(email) {
